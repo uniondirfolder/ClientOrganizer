@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClientOrganizer.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" FontSize="20">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200">
 
+            </ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ListView ItemsSource="{Binding Clients}"
+                  SelectedItem="{Binding SelectedClient,Mode=TwoWay}"
+                  DisplayMemberPath="FirstName"></ListView>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition ></RowDefinition>
+            </Grid.RowDefinitions>
+        </Grid>
     </Grid>
 </Window>
