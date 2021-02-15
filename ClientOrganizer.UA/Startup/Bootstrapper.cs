@@ -10,6 +10,8 @@ namespace ClientOrganizer.UI.Startup
         {
             var builder = new ContainerBuilder();
 
+            builder.RegisterType<ClientOrganizer.DataAccess.ClientOrganizerDbContext>().AsSelf();
+
             builder.RegisterType<MainWindow>().AsSelf();
             builder.RegisterType<ViewModel.MainViewModel>().AsSelf();
             builder.RegisterType<Data.ClientDataService>().As<Data.IClientDataService>();

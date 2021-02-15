@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using ClientOrganizer.Model;
 
 namespace ClientOrganizer.UI.Data
 {
     public interface IClientDataService
     {
-        IEnumerable<Client> GetAll();
+        Task<List<Client>> GetAllAsync();
     }
 }

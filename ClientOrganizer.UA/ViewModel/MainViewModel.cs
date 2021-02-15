@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using ClientOrganizer.Model;
 using ClientOrganizer.UI.Data;
 
@@ -15,9 +16,9 @@ namespace ClientOrganizer.UI.ViewModel
             Clients = new ObservableCollection<Client>();
         }
 
-        public void Load()
+        public async Task LoadAsync()
         {
-            var clients = _clientDataService.GetAll();
+            var clients = await _clientDataService.GetAllAsync();
             Clients.Clear();
             foreach (var client in clients)
             {
