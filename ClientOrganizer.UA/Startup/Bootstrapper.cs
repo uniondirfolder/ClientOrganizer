@@ -1,6 +1,7 @@
 ﻿
 
 using Autofac;
+using ClientOrganizer.UI.ViewModel;
 
 namespace ClientOrganizer.UI.Startup
 {
@@ -14,6 +15,10 @@ namespace ClientOrganizer.UI.Startup
 
             builder.RegisterType<MainWindow>().AsSelf();
             builder.RegisterType<ViewModel.MainViewModel>().AsSelf();
+            builder.RegisterType<NavigationViewModel>().As<INavigationViewModel>();
+            builder.RegisterType<ClientDetailViewModel>().As<IClientDetailViewModel>();
+
+            builder.RegisterType<ClientOrganizer.UI.Data.LookupDataService>().AsImplementedInterfaces();
             builder.RegisterType<Data.ClientDataService>().As<Data.IClientDataService>();
 
             return builder.Build();

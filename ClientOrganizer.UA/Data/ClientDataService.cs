@@ -18,16 +18,12 @@ namespace ClientOrganizer.UI.Data
         }
 
         //TODO: Load data from real database
-        public async Task<List<Client>> GetAllAsync()
+        public async Task<Client> GetByIdAsync(int clientId)
         {
             using (var ctx = _contextCreator())
             {
-                return await ctx.Clients.AsNoTracking().ToListAsync();
+                return await ctx.Clients.AsNoTracking().SingleAsync(c=>c.Id==clientId);
             }
-            //yield return new Client{FirstName = "T", LastName = "F"};
-            //yield return new Client { FirstName = "T1", LastName = "F1" };
-            //yield return new Client { FirstName = "T2", LastName = "F2" };
-            //yield return new Client { FirstName = "T3", LastName = "F3" };
         }
     }
 }
