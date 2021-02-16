@@ -7,5 +7,6 @@ namespace ClientOrganizer.UI.Data
     public interface IClientDataService
     {
         Task<Client> GetByIdAsync(int clientId);
+        Task SaveAsync(Client client);
     }
 }

@@ -4,7 +4,9 @@ using ClientOrganizer.Model;
 using ClientOrganizer.UI.Data;
 using ClientOrganizer.UI.Event;
 using Prism.Events;
+using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ClientOrganizer.UI.ViewModel
@@ -19,7 +21,14 @@ namespace ClientOrganizer.UI.ViewModel
         {
             _clientLookupDataService = clientLookupDataService;
             _eventAggregator = eventAggregator;
-            Clients = new ObservableCollection<LookupItem>();
+            Clients = new ObservableCollection<NavigationItemViewModel>();
+            _eventAggregator.GetEvent<AfterClientSavedEvent>().Subscribe(AfterClientSaved);
+        }
+
+        private void AfterClientSaved(AfterClientSavedEventArgs obj)
+        {
+            var lookupItem = Clients.Single(l => l.Id == obj.Id);
+            lookupItem.DisplayMember = obj.DisplayMember;
         }
 
         public async Task LoadAsync()
@@ -28,15 +37,15 @@ namespace ClientOrganizer.UI.ViewModel
             Clients.Clear();
             foreach (var item in lookup)
             {
-                Clients.Add(item);
+                Clients.Add(new NavigationItemViewModel(item.Id,item.DisplayMember));
             }
         }
 
-        public ObservableCollection<LookupItem> Clients { get; }
+        public ObservableCollection<NavigationItemViewModel> Clients { get; }
 
-        private LookupItem _selectedClient;
+        private NavigationItemViewModel _selectedClient;
 
-        public LookupItem SelectedClient
+        public NavigationItemViewModel SelectedClient
         {
             get { return _selectedClient; }
             set {

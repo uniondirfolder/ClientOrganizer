@@ -25,5 +25,15 @@ namespace ClientOrganizer.UI.Data
                 return await ctx.Clients.AsNoTracking().SingleAsync(c=>c.Id==clientId);
             }
         }
+
+        public async Task SaveAsync(Client client)
+        {
+            using (var ctx = _contextCreator())
+            {
+                ctx.Clients.Attach(client);
+                ctx.Entry(client).State = EntityState.Modified;
+                await ctx.SaveChangesAsync();
+            }
+        }
     }
 }
