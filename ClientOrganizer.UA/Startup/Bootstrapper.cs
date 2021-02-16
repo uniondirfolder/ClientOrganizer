@@ -2,6 +2,7 @@
 
 using Autofac;
 using ClientOrganizer.UI.ViewModel;
+using Prism.Events;
 
 namespace ClientOrganizer.UI.Startup
 {
@@ -11,7 +12,10 @@ namespace ClientOrganizer.UI.Startup
         {
             var builder = new ContainerBuilder();
 
+            builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
+
             builder.RegisterType<ClientOrganizer.DataAccess.ClientOrganizerDbContext>().AsSelf();
+
 
             builder.RegisterType<MainWindow>().AsSelf();
             builder.RegisterType<ViewModel.MainViewModel>().AsSelf();

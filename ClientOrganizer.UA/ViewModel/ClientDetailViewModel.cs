@@ -2,17 +2,30 @@
 
 using ClientOrganizer.Model;
 using ClientOrganizer.UI.Data;
+using ClientOrganizer.UI.Event;
+using Prism.Events;
+using System;
 using System.Threading.Tasks;
 
 namespace ClientOrganizer.UI.ViewModel
 {
     public class ClientDetailViewModel : ViewModelBase, IClientDetailViewModel
     {
-        private readonly IClientDataService _clientDataService;
+        private IClientDataService _clientDataService;
+        private IEventAggregator _eventAggregator;
 
-        public ClientDetailViewModel(IClientDataService clientDataService)
+        public ClientDetailViewModel(IClientDataService clientDataService,
+            IEventAggregator eventAggregator)
         {
             _clientDataService = clientDataService;
+            _eventAggregator = eventAggregator;
+            _eventAggregator.GetEvent<OpenClientDetailViewEvent>()
+                .Subscribe(OnOpenClientDetailView);
+        }
+
+        private async void OnOpenClientDetailView(int clientId)
+        {
+            await LoadAsync(clientId);
         }
 
         public async Task LoadAsync(int clientId)
